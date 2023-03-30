@@ -10,7 +10,6 @@ public class LdapConfiguration : IRealmConfiguration
     public int? Timeout { get; set; }
     public ReferralChasingOptions? Deref { get; set; }
     public string Filter { get; set; }
-    public string Restart { get; set; }
     public string Server { get; set; }
     public string SearchBase { get; set; }
 };

@@ -59,7 +59,7 @@ public class Server
         s.Receive(dataCount, 2, System.Net.Sockets.SocketFlags.None);
         int count = BinaryPrimitives.ReadInt16BigEndian(dataCount);
         if (count > MaxRequestLength) {
-        	throw new Exception("data too long");
+        	throw new InvalidDataException("data too long");
         }
         return count;
     }
@@ -68,7 +68,7 @@ public class Server
     {
         byte[] dataCount = new byte[2];
         if (count > MaxRequestLength) {
-        	throw new Exception("data too long");
+        	throw new InvalidDataException("data too long");
         }
         BinaryPrimitives.WriteInt16BigEndian(new Span<byte>(dataCount), (short)count);
         s.Send(dataCount, 2, System.Net.Sockets.SocketFlags.None);
@@ -94,8 +94,9 @@ public class Server
             string realm    = ReadString(s);
 
             account = $"{login}@{realm}";
-            string response = Authenticate(login, password, service, realm);
-
+            string response = Authenticate(login, password, service, realm)
+                ? "OK"
+                : "NO";
             SendResponse(s, response, account);
         }
         catch(Exception ex)
@@ -117,7 +118,7 @@ public class Server
         s.Send(dataToSend, count, System.Net.Sockets.SocketFlags.None);
     }
 
-    private string Authenticate(string login, string password, string service, string realm)
+    private bool Authenticate(string login, string password, string service, string realm)
     {
         if (string.IsNullOrWhiteSpace(login))
             throw new ArgumentNullException(nameof(login));
@@ -126,15 +127,13 @@ public class Server
             throw new ArgumentNullException(nameof(password));
 
         if (service != "ldap")
-            throw new Exception($"Service {service} is unsupported");
+            throw new NotImplementedException($"Service {service} is unsupported");
 
         if (!_configuration.Realms.ContainsKey(realm))
-            throw new Exception($"Realm {realm} is not configured");
+            throw new ArgumentException($"Realm {realm} is not configured");
 
         var config = _configuration.Realms[realm];
         IAuthenticationMechanism mechanism = new Mechanism.Ldap.LdapAuthentication(config.Settings, config.Credentials);
-        var success = mechanism.Authenticate(login, password, service, realm);
-
-        return success ? "OK" : "NO";
+        return mechanism.Authenticate(login, password, service, realm);
     }
 }

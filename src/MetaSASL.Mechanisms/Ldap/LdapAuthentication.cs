@@ -15,7 +15,11 @@ public class LdapAuthentication : IAuthenticationMechanism
 
     public LdapAuthentication(IRealmConfiguration configuration, IRealmSecret secret)
     {
+        if (configuration == null)
+            throw new ArgumentNullException(nameof(configuration));
         _configuration = configuration as LdapConfiguration;
+        if (_configuration == null)
+            throw new ArgumentException("configuration was not a LdapConfiguration");
         _secret = secret;
     }
 
