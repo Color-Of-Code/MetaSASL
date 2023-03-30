@@ -1,0 +1,5 @@
+**/obj/
+**/bin/
+test/mux
+Demo/
+ldaps/

@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  dev:
+    image: "mcr.microsoft.com/devcontainers/dotnet:0-7.0-bullseye"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity

@@ -1,0 +1,35 @@
+{
+	"name": "C# (.NET)",
+
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "dev",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+    // Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"aliasadidev.nugetpackagemanagergui",
+				"eamodio.gitlens",
+				"EditorConfig.EditorConfig",
+				"formulahendry.dotnet-test-explorer",
+				"ryanluker.vscode-coverage-gutters",
+				"ms-dotnettools.csharp",
+				"urbanoanderson.vscode-coverlet"
+			]
+		}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	"postCreateCommand": "dotnet restore"
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

@@ -1,0 +1,13 @@
+realms:
+  futurama: # realm name
+    type: ldap
+    settings:
+        # this will only work from within the configured devcontainer
+        # (If you want to test this from outside, use localhost instead)
+        server: ldap://host.docker.internal:10389
+        search_base: ou=people,dc=planetexpress,dc=com
+        # allow ship_crew to authenticate but not others
+        filter: (&(uid=%U)(memberof=cn=ship_crew,ou=people,dc=planetexpress,dc=com))
+        scope: subtree
+        timeout: 3
+        deref: none
