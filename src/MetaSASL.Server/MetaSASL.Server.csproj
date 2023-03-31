@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MetaSASL.Abstractions\MetaSASL.Abstractions.csproj" />
-    <ProjectReference Include="..\MetaSASL.Mechanisms\MetaSASL.Mechanisms.csproj" />
+    <ProjectReference Include="..\MetaSASL.Services\MetaSASL.Services.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

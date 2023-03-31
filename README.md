@@ -1,6 +1,12 @@
 # MetaSASL
 
-SASL server implementation solving the meta setup in a simple way
+SASL authentication server implementation solving a "meta" setup in a simple way.
+
+The server handles the PLAIN mechanism towards a SASL service and can act as a drop
+in replacement for `saslauthd`.
+
+This server adds the feature to be able to safely handle multiple backends for
+authentication (at the moment `ldap` services only)
 
 ## Server configuration
 
@@ -54,5 +60,7 @@ testsaslauthd -f test/mux -u professor -p professor -r futurama -s ldap
 testsaslauthd -f test/mux -u fry       -p fry       -r futurama -s ldap
 ```
 
-This proves the setup can be used as a drop in replacement for a saslauthd setup.
-It is enabling multiple realms easily, but at the moment you are constrained to use LDAP only as a backend.
+This proves the setup can be used as a drop in replacement for a `saslauthd` setup, since we use
+the `testsaslauthd` which is from the `sasl2-bin` package and not part of this repository.
+
+It is enabling multiple realms easily, but at the moment you are constrained to use ldap services only as a backend.

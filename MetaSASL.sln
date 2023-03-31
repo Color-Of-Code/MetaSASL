@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaSASL.Abstractions", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaSASL.Server", "src\MetaSASL.Server\MetaSASL.Server.csproj", "{7ECDAC16-C826-4C32-8FB0-A43E9778BAEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaSASL.Mechanisms", "src\MetaSASL.Mechanisms\MetaSASL.Mechanisms.csproj", "{5B9F5124-9DA0-4562-8C81-29CD2CE5B286}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaSASL.Services", "src\MetaSASL.Services\MetaSASL.Services.csproj", "{5B9F5124-9DA0-4562-8C81-29CD2CE5B286}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

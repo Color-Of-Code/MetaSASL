@@ -2,7 +2,7 @@ using System.DirectoryServices.Protocols;
 
 using Sasl.Abstractions;
 
-namespace Sasl.Mechanism.Ldap;
+namespace Sasl.Services.Ldap;
 
 public class LdapConfiguration : IRealmConfiguration
 {

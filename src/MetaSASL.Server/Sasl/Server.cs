@@ -118,7 +118,7 @@ public class Server
         s.Send(dataToSend, count, System.Net.Sockets.SocketFlags.None);
     }
 
-    private bool Authenticate(string login, string password, string service, string realm)
+    private bool Authenticate(string login, string password, string serviceName, string realm)
     {
         if (string.IsNullOrWhiteSpace(login))
             throw new ArgumentNullException(nameof(login));
@@ -126,14 +126,14 @@ public class Server
         if (string.IsNullOrWhiteSpace(password))
             throw new ArgumentNullException(nameof(password));
 
-        if (service != "ldap")
-            throw new NotImplementedException($"Service {service} is unsupported");
+        if (serviceName != "ldap")
+            throw new NotImplementedException($"Service {serviceName} is unsupported");
 
         if (!_configuration.Realms.ContainsKey(realm))
             throw new ArgumentException($"Realm {realm} is not configured");
 
         var config = _configuration.Realms[realm];
-        IAuthenticationMechanism mechanism = new Mechanism.Ldap.LdapAuthentication(config.Settings, config.Credentials);
-        return mechanism.Authenticate(login, password, service, realm);
+        IAuthenticationService service = new Services.Ldap.LdapAuthentication(config.Settings, config.Credentials);
+        return service.Authenticate(login, password, serviceName, realm);
     }
 }

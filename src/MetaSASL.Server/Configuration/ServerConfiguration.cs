@@ -1,5 +1,5 @@
 using Sasl.Abstractions;
-using Sasl.Mechanism.Ldap;
+using Sasl.Services.Ldap;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 

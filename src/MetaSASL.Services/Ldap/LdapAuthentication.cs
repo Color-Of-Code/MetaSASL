@@ -6,9 +6,9 @@ using System.Net;
 
 using Sasl.Abstractions;
 
-namespace Sasl.Mechanism.Ldap;
+namespace Sasl.Services.Ldap;
 
-public class LdapAuthentication : IAuthenticationMechanism
+public class LdapAuthentication : IAuthenticationService
 {
     private readonly LdapConfiguration _configuration;
     private readonly IRealmSecret _secret;
