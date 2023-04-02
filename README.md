@@ -2,11 +2,12 @@
 
 SASL authentication server implementation solving a "meta" setup in a simple way.
 
-The server handles the PLAIN mechanism towards a SASL service and can act as a drop
-in replacement for `saslauthd`.
+Instead of setting up a [meta openldap server](https://ltb-project.org/documentation/sasl_delegation.html#pass-through-authentication-on-several-ldap-directories-with-openldap-meta-backend)
+for various backends, you can directly use this server and configure the multiple backends directly, thus removing several layers of complexity.
 
-This server adds the feature to be able to safely handle multiple backends for
-authentication (at the moment `ldap` services only)
+The MetaSASL.Server handles the PLAIN mechanism towards a SASL service and can act as a drop in replacement for `saslauthd`.
+
+The MetaSASL.Server adds the feature to be able to safely handle multiple backends for authentication (at the moment `ldap` services only)
 
 ## Server configuration
 
