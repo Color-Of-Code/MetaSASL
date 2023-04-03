@@ -13,11 +13,11 @@ public class LdapAuthentication : IAuthenticationService
     private readonly LdapConfiguration _configuration;
     private readonly IRealmSecret _secret;
 
-    public LdapAuthentication(IRealmConfiguration configuration, IRealmSecret secret)
+    public LdapAuthentication(IRealmConfiguration settings, IRealmSecret secret)
     {
-        if (configuration == null)
-            throw new ArgumentNullException(nameof(configuration));
-        _configuration = configuration as LdapConfiguration;
+        if (settings == null)
+            throw new ArgumentNullException(nameof(settings));
+        _configuration = settings as LdapConfiguration;
         if (_configuration == null)
             throw new ArgumentException("configuration was not a LdapConfiguration");
         _secret = secret;
@@ -40,13 +40,21 @@ public class LdapAuthentication : IAuthenticationService
         options.ReferralChasing = _configuration.Deref ?? ReferralChasingOptions.None;
         options.SecureSocketLayer = isLDAPS;
 
-        // bind with bindDn and lookup user
-        var credentials = new NetworkCredential()
+        if (_secret != null)
         {
-            UserName = _secret.Login,
-            Password = _secret.Password
-        };
-        connection.Bind(credentials);
+            // bind with bindDn and lookup user
+            var credentials = new NetworkCredential()
+            {
+                UserName = _secret.Login,
+                Password = _secret.Password
+            };
+            connection.Bind(credentials);
+        }
+        else
+        {
+            // anonymous bind
+            connection.Bind();
+        }
 
         var filter = _configuration.Filter.Replace("%U", login);
         var request = new SearchRequest(

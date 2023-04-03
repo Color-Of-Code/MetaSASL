@@ -3,3 +3,5 @@
 test/mux
 Demo/
 ldaps/
+src/MetaSASL.Server.Tests/coverage.json
+src/MetaSASL.Server.Tests/TestResults/**

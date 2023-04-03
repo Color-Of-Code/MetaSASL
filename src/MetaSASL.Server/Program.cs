@@ -9,7 +9,8 @@ var configPath = Environment.GetEnvironmentVariable("SASL_CONFIGURATION_DIR")
 var socketPath = Environment.GetEnvironmentVariable("SASL_SOCKET_FILE")
                  ?? "/var/run/metasasl/mux";
 
-var configuration = ServerConfiguration.Load(configPath);
+var configuration   = ServerConfiguration.Load(configPath);
+var requestHandler  = new AuthenticationHandler(configuration);
+var listeningSocket = new ListeningSocket(socketPath);
 
-var server = new Server(socketPath, configuration);
-server.Run();
+listeningSocket.Listen(requestHandler);

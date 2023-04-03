@@ -65,3 +65,15 @@ This proves the setup can be used as a drop in replacement for a `saslauthd` set
 the `testsaslauthd` which is from the `sasl2-bin` package and not part of this repository.
 
 It is enabling multiple realms easily, but at the moment you are constrained to use ldap services only as a backend.
+
+**Unit Tests**
+
+Unit tests are written in XUnit and code coverage is done thanks to Coverlet
+
+```bash
+# for vscode integrated report
+dotnet test --collect:"XPlat Code Coverage"
+
+# msbuild report
+dotnet test /p:CollectCoverage=true
+```

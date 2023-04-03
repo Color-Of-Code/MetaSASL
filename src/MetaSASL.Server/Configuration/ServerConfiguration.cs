@@ -51,13 +51,14 @@ public class ServerConfiguration
         ServerConfiguration c = new();
         foreach (var kv in saslConfig.Realms)
         {
-            kv.Value.Credentials = secretsConfig.Realms[kv.Key];
-            c._realms.Add(kv.Key, kv.Value);
+            var credentials = secretsConfig.Realms[kv.Key];
+            var service = new Services.Ldap.LdapAuthentication(kv.Value.Settings, credentials);
+            c._realms.Add(kv.Key, service);
         }
         return c;
     }
 
-    public IReadOnlyDictionary<string, RealmConfiguration> Realms => _realms;
+    public IDictionary<string, IAuthenticationService> Realms => _realms;
 
-    private Dictionary<string, RealmConfiguration> _realms = new();
+    private Dictionary<string, IAuthenticationService> _realms = new();
 };
